@@ -7,7 +7,7 @@
 class SPI_SLAVE
 {
   public:
-    SPI_SLAVE(const uint8_t sclk = 0,
+    virtual SPI_SLAVE(const uint8_t sclk = 0,
               const uint8_t mosi = 0,
               const uint8_t miso = 0,
               const uint8_t ss = 0,
@@ -18,6 +18,10 @@ class SPI_SLAVE
     void handleTick();
     void handleSlaveSelect();
 
+    virtual uint8_t  setMisoData();
+    virtual void handleMosiData(const uint8_t b);
+    virtual void handleSlaveSelectEnd();
+    
   private:
     uint8_t sclk = 0;
     uint8_t mosi = 0;
@@ -43,10 +47,6 @@ class SPI_SLAVE
     void writeMISO();
     void slaveSelectFalling();
     void slaveSelectRising();
-
-    virtual uint8_t  setMisoData();
-    virtual void handleMosiData(const uint8_t b);
-    virtual void handleSlaveSelectEnd();
 };
 
 #endif
