@@ -97,6 +97,13 @@ void SPI_SLAVE::tickLeading() {
       writeMISO();
       break;
   }
+  // if we need to acknowledge an ack do it now
+  if (doAck) {
+    digitalWrite(ack, LOW);
+  } else {
+    digitalWrite(ack, HIGH);
+  }
+  doAck = false;
 }
 
 void SPI_SLAVE::tickTrailing() {
@@ -127,6 +134,9 @@ void SPI_SLAVE::writeMISO() {
     misoData = setMisoData();
   }
   digitalWrite(miso, ((misoData & (1 << bit)) >> bit));
+  if (tick > 0 && bit == 0){
+    doAck = true;
+  }
 }
 
 void SPI_SLAVE::slaveSelectRising() {
