@@ -1,12 +1,8 @@
 #ifndef SPI_SLAVE_h
 #define SPI_SLAVE_h
 
+#include <SPI.h>
 #include "Arduino.h"
-
-#define SPI_MODE0 0
-#define SPI_MODE1 1
-#define SPI_MODE2 2
-#define SPI_MODE3 3
 
 typedef uint8_t (*SetMisoData)();
 typedef void (*HandleMosiData)(const uint8_t b);
