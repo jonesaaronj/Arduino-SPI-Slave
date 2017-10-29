@@ -47,7 +47,7 @@ void SPI_SLAVE::config(uint8_t mode,
 }
 
 void SPI_SLAVE::handleTick() {
-  digitalRead(sclk) == HIGH ? tickRising() : tickFalling();
+  digitalRead(sclk) == HIGH && digitalRead(ss) == LOW ? tickRising() : tickFalling();
 }
 
 void SPI_SLAVE::handleSlaveSelect() {
@@ -55,34 +55,28 @@ void SPI_SLAVE::handleSlaveSelect() {
 }
 
 void SPI_SLAVE::tickRising() {
-  // if slave select is low do stuff
-  if (!digitalRead(ss)) {
-    switch (cpol) {
-      // CPOL=0, rising is leading edge
-      case 0:
-        tickLeading();
-        break;
-      // CPOL=1, rising is trailing edge
-      case 1:
-        tickTrailing();
-        break;
-    }
+  switch (cpol) {
+    // CPOL=0, rising is leading edge
+    case 0:
+      tickLeading();
+      break;
+    // CPOL=1, rising is trailing edge
+    case 1:
+      tickTrailing();
+      break;
   }
 }
 
 void SPI_SLAVE::tickFalling() {
-  // if slave select is low do stuff
-  if (!digitalRead(ss)) {
-    switch (cpol) {
-      // CPOL=0, falling is trailing edge
-      case 0:
-        tickTrailing();
-        break;
-      // CPOL=1, falling is leading edge
-      case 1:
-        tickLeading();
-        break;
-    }
+  switch (cpol) {
+    // CPOL=0, falling is trailing edge
+    case 0:
+      tickTrailing();
+      break;
+    // CPOL=1, falling is leading edge
+    case 1:
+      tickLeading();
+      break;
   }
 }
 
@@ -134,7 +128,7 @@ void SPI_SLAVE::writeMISO() {
     misoData = setMisoData();
   }
   digitalWrite(miso, ((misoData & (1 << bit)) >> bit));
-  if (tick > 0 && bit == 0){
+  if (tick > 0 && bit == 0) {
     doAck = true;
   }
 }
@@ -143,7 +137,7 @@ void SPI_SLAVE::slaveSelectRising() {
   tick = 0;
   mosiData = 0;
   misoData = 0;
-  
+
   handleSlaveSelectEnd();
 }
 
