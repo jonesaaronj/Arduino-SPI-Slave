@@ -7,11 +7,13 @@ SPI_SLAVE::SPI_SLAVE(uint8_t sclk = 0,
                      uint8_t ack = 0) {
 
   // set clock, atten, and command as inputs
-  pinMode(sclk, INPUT_PULLUP);
-  pinMode(mosi, INPUT_PULLUP);
-  pinMode(ss, INPUT_PULLUP);
+  pinMode(sclk, INPUT);
+  pinMode(mosi, INPUT);
+  // Slave Select is always active low
+  pinMode(ss, INPUT);
 
   // set data and ack as outputs
+  // these both need to be open collectors???
   pinMode(miso, OUTPUT);
   pinMode(ack, OUTPUT);
 }
@@ -50,8 +52,9 @@ void SPI_SLAVE::handleTick() {
   digitalRead(sclk) == HIGH && digitalRead(ss) == LOW ? tickRising() : tickFalling();
 }
 
+// Slave Select is always active low
 void SPI_SLAVE::handleSlaveSelect() {
-  digitalRead(ss) == HIGH ? slaveSelectRising() : slaveSelectFalling();
+  digitalRead(ss) == LOW ? slaveSelectRising() : slaveSelectFalling();
 }
 
 void SPI_SLAVE::tickRising() {
@@ -142,5 +145,5 @@ void SPI_SLAVE::slaveSelectRising() {
 }
 
 void SPI_SLAVE::slaveSelectFalling() {
-  // slave select always signals by going high to low
+  
 }
