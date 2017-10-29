@@ -18,14 +18,7 @@ SPI_SLAVE::SPI_SLAVE(const uint8_t sclk = 0,
   pinMode(ack, OUTPUT);
 }
 
-void SPI_SLAVE::config(const uint8_t mode,
-                       const SetMisoData setMisoData,
-                       const HandleMosiData handleMosiData,
-                       const HandleSlaveSelectEnd handleSlaveSelectEnd) {
-
-  this->setMisoData = setMisoData;
-  this->handleMosiData = handleMosiData;
-  this->handleSlaveSelectEnd = handleSlaveSelectEnd;
+void SPI_SLAVE::config(const uint8_t mode) {
 
   switch (mode) {
     case SPI_MODE0:
@@ -145,5 +138,18 @@ void SPI_SLAVE::slaveSelectRising() {
 }
 
 void SPI_SLAVE::slaveSelectFalling() {
-  
+
 }
+
+uint8_t  SPI_SLAVE::setMisoData() {
+
+}
+
+void SPI_SLAVE::handleMosiData(const uint8_t b) {
+
+}
+
+void SPI_SLAVE::handleSlaveSelectEnd() {
+
+}
+

@@ -4,10 +4,6 @@
 #include <SPI.h>
 #include "Arduino.h"
 
-typedef uint8_t (*SetMisoData)();
-typedef void (*HandleMosiData)(const uint8_t b);
-typedef void (*HandleSlaveSelectEnd)();
-
 class SPI_SLAVE
 {
   public:
@@ -17,10 +13,7 @@ class SPI_SLAVE
               const uint8_t ss = 0,
               const uint8_t ack = 0);
 
-    void config(const uint8_t mode,
-                const SetMisoData setMisoData,
-                const HandleMosiData handleMosiData,
-                const HandleSlaveSelectEnd handleSlaveSelectEnd);
+    void config(const uint8_t mode);
 
     void handleTick();
     void handleSlaveSelect();
@@ -42,10 +35,6 @@ class SPI_SLAVE
     bool doAck;
     bool lastByte;
 
-    HandleMosiData handleMosiData;
-    SetMisoData setMisoData;
-    HandleSlaveSelectEnd handleSlaveSelectEnd;
-
     void tickFalling();
     void tickRising();
     void tickLeading();
@@ -54,6 +43,10 @@ class SPI_SLAVE
     void writeMISO();
     void slaveSelectFalling();
     void slaveSelectRising();
+
+    virtual uint8_t  setMisoData();
+    virtual void handleMosiData(const uint8_t b);
+    virtual void handleSlaveSelectEnd();
 };
 
 #endif
