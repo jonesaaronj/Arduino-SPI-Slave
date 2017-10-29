@@ -11,16 +11,16 @@ typedef void (*HandleSlaveSelectEnd)();
 class SPI_SLAVE
 {
   public:
-    SPI_SLAVE(uint8_t sclk = 0,
-              uint8_t mosi = 0,
-              uint8_t miso = 0,
-              uint8_t ss = 0,
-              uint8_t ack = 0);
+    SPI_SLAVE(const uint8_t sclk = 0,
+              const uint8_t mosi = 0,
+              const uint8_t miso = 0,
+              const uint8_t ss = 0,
+              const uint8_t ack = 0);
 
-    void config(uint8_t mode,
-                SetMisoData setMisoData,
-                HandleMosiData handleMosiData,
-                HandleSlaveSelectEnd handleSlaveSelectEnd);
+    void config(const uint8_t mode,
+                const SetMisoData setMisoData,
+                const HandleMosiData handleMosiData,
+                const HandleSlaveSelectEnd handleSlaveSelectEnd);
 
     void handleTick();
     void handleSlaveSelect();

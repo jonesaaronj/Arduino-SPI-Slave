@@ -1,10 +1,10 @@
 #include "spi_slave.h"
 
-SPI_SLAVE::SPI_SLAVE(uint8_t sclk = 0,
-                     uint8_t mosi = 0,
-                     uint8_t miso = 0,
-                     uint8_t ss = 0,
-                     uint8_t ack = 0) {
+SPI_SLAVE::SPI_SLAVE(const uint8_t sclk = 0,
+                     const uint8_t mosi = 0,
+                     const uint8_t miso = 0,
+                     const uint8_t ss = 0,
+                     const uint8_t ack = 0) {
 
   // set clock, atten, and command as inputs
   pinMode(sclk, INPUT);
@@ -18,10 +18,10 @@ SPI_SLAVE::SPI_SLAVE(uint8_t sclk = 0,
   pinMode(ack, OUTPUT);
 }
 
-void SPI_SLAVE::config(uint8_t mode,
-                       SetMisoData setMisoData,
-                       HandleMosiData handleMosiData,
-                       HandleSlaveSelectEnd handleSlaveSelectEnd) {
+void SPI_SLAVE::config(const uint8_t mode,
+                       const SetMisoData setMisoData,
+                       const HandleMosiData handleMosiData,
+                       const HandleSlaveSelectEnd handleSlaveSelectEnd) {
 
   this->setMisoData = setMisoData;
   this->handleMosiData = handleMosiData;
