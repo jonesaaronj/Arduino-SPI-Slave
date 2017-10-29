@@ -4,8 +4,13 @@ SPI_SLAVE::SPI_SLAVE(const uint8_t sclk = 0,
                      const uint8_t mosi = 0,
                      const uint8_t miso = 0,
                      const uint8_t ss = 0,
-                     const uint8_t ack = 0) {
+                     const uint8_t ack = 0,
+                     const uint8_t _cpol = 0,
+                     const uint8_t _cpha = 0) {
 
+  cpol = _cpol;
+  cpha = _cpha;
+  
   // set clock, atten, and command as inputs
   pinMode(sclk, INPUT);
   pinMode(mosi, INPUT);

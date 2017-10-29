@@ -11,7 +11,9 @@ class SPI_SLAVE
               const uint8_t mosi = 0,
               const uint8_t miso = 0,
               const uint8_t ss = 0,
-              const uint8_t ack = 0);
+              const uint8_t ack = 0,
+              const uint8_t cpol = 0,
+              const uint8_t cpha = 0);
 
     void config(const uint8_t mode);
 
