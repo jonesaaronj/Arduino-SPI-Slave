@@ -7,7 +7,7 @@
 class SPI_SLAVE
 {
   public:
-    virtual SPI_SLAVE(const uint8_t sclk = 0,
+    explicit SPI_SLAVE(const uint8_t sclk = 0,
               const uint8_t mosi = 0,
               const uint8_t miso = 0,
               const uint8_t ss = 0,
